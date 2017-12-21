@@ -1,0 +1,14 @@
+version: '2'
+services:
+    jhiptruffle2-app:
+        image: jhiptruffle2
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://jhiptruffle2-mysql:3306/jhiptruffle2?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        ports:
+            - 8080:8080
+    jhiptruffle2-mysql:
+        extends:
+            file: mysql.yml
+            service: jhiptruffle2-mysql
