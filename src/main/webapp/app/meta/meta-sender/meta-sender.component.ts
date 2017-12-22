@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Web3Service} from '../../util/web3.service';
-import metacoin_artifacts from '../../../../../../build/contracts/MetaCoin.json';
+import metacoin_artifacts = require('../../../../../../build/contracts/MetaCoin.json');
 
 @Component({
   selector: 'jhi-app-meta-sender',
@@ -28,6 +28,7 @@ export class MetaSenderComponent implements OnInit {
     console.log('OnInit: ' + this.web3Service);
     console.log(this);
     this.watchAccount();
+    console.log('metacoin_artifacts:' + metacoin_artifacts);
     this.web3Service.artifactsToContract(metacoin_artifacts)
       .then((MetaCoinAbstraction) => {
         this.MetaCoin = MetaCoinAbstraction;

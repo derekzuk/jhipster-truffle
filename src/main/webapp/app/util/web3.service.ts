@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import Web3 from 'web3';
-import {default as contract} from 'truffle-contract';
+import Web3 = require('web3');
+import contract = require('truffle-contract');
 import {Subject} from 'rxjs/Rx';
 
 declare let window: any;
@@ -14,15 +14,18 @@ export class Web3Service {
   public accountsObservable = new Subject<string[]>();
 
   constructor() {
+    console.log('in web3.service.ts constructor');
     window.addEventListener('load', (event) => {
       this.bootstrapWeb3();
     });
   }
 
   public bootstrapWeb3() {
+    console.log('in bootstrapWeb3() method');
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
     if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider
+      console.log(window.web3.currentProvider);
       this.web3 = new Web3(window.web3.currentProvider);
     } else {
       console.log('No web3? You should consider trying MetaMask!');
@@ -38,7 +41,7 @@ export class Web3Service {
 
   public async artifactsToContract(artifacts) {
     if (!this.web3) {
-      const delay = new Promise(resolve => setTimeout(resolve, 100));
+      const delay = new Promise((resolve) => setTimeout(resolve, 100));
       await delay;
       return await this.artifactsToContract(artifacts);
     }
