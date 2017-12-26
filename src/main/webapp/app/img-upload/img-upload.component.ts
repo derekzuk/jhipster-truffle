@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class ImgUploadComponent {
   title = 'Image Upload';
 
-  url = '';
+  public url = require('../../content/images/rainbowskele.jpg');
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
@@ -16,6 +16,7 @@ export class ImgUploadComponent {
       reader.readAsDataURL(event.target.files[0]); // read file as data url
 
       reader.onload = (event:any) => { // called once readAsDataURL is completed
+        console.log(event.target.result);
         this.url = event.target.result;
       }
     }
