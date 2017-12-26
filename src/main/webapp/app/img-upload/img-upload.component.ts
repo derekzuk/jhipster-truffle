@@ -21,4 +21,8 @@ export class ImgUploadComponent {
       }
     }
   }
+
+  submitImage() {
+    console.log('in submitImage()');
+  }
 }
