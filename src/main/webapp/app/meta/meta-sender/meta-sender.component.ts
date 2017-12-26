@@ -68,6 +68,7 @@ export class MetaSenderComponent implements OnInit {
       } else {
         this.setStatus('Transaction complete!');
       }
+      location.reload();
     } catch (e) {
       console.log(e);
       this.setStatus('Error sending coin; see log.');
