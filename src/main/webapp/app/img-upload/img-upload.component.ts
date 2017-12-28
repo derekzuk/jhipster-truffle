@@ -16,7 +16,6 @@ export class ImgUploadComponent {
       reader.readAsDataURL(event.target.files[0]); // read file as data url
 
       reader.onload = (event:any) => { // called once readAsDataURL is completed
-        console.log(event.target.result);
         this.url = event.target.result;
       }
     }
@@ -24,5 +23,9 @@ export class ImgUploadComponent {
 
   submitImage() {
     console.log('in submitImage()');
+//    console.log(event.target.files[0]);
+
+//  var data = new Blob([byteArray], {type: "image/jpeg"});
+//  saveAs(event.target.files[0], "testfile.jpg");
   }
 }
