@@ -1,0 +1,5 @@
+<form name="form" role="form" (ngSubmit)="submitImage()" *ngIf="!success">
+    <img [src]="url" height="500"> <br/>
+    <input type='file' (change)="onSelectFile($event)">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

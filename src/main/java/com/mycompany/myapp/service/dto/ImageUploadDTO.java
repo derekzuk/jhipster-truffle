@@ -25,6 +25,12 @@ public class ImageUploadDTO {
     @Size(max = 1000)
     private String cryptoUser;
 
+    public ImageUploadDTO(Long imageUploadId, String imagePath, String cryptoUser) {
+        this.imageUploadId = imageUploadId;
+        this.imagePath = imagePath;
+        this.cryptoUser = cryptoUser;
+    }
+
     public Long getImageUploadId() {
         return imageUploadId;
     }

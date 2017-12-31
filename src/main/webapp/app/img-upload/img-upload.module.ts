@@ -2,8 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { Jhiptruffle2SharedModule } from '../shared';
-import { ImageUploadService } from './img-upload.service';
-import { IMG_UPLOAD_ROUTE, ImgUploadComponent } from './';
+import { IMG_UPLOAD_ROUTE, ImgUploadComponent, ImageUploadService} from './';
 
 @NgModule({
     imports: [

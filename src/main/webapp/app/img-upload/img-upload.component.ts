@@ -18,12 +18,11 @@ export class ImgUploadComponent {
 
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
+        this.uploadedImage = event.target.files[0];
 
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-      this.uploadedImage = event.target.files[0];
-
-      reader.onload = (event:any) => { // called once readAsDataURL is completed
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]); // read file as data url
+        reader.onload = (event:any) => { // called once readAsDataURL is completed
         this.url = event.target.result;
       }
     }
@@ -33,8 +32,13 @@ export class ImgUploadComponent {
     console.log('in submitImage() attempting to upload image:' + this.uploadedImage);
     console.log(this.uploadedImage);
 
-    var imageModel = new ImageUpload(1, 'abc', 'crypto user string');
+    const imageModel = new ImageUpload(1, 'abc', 'crypto user string');
+
+    this.imageUploadService.getTest().subscribe();
+    this.imageUploadService.query();
+
 
     this.imageUploadService.saveImage(imageModel);
+    console.log('exiting submitImage');
   }
 }

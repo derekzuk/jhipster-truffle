@@ -73,6 +73,7 @@ public class UserResource {
         this.mailService = mailService;
     }
 
+
     /**
      * POST  /users  : Creates a new user.
      * <p>
