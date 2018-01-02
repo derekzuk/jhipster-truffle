@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -27,6 +28,10 @@ public class Image implements Serializable {
 
     @Column(name = "image_location")
     private String image_location;
+
+    @Min(1)
+    @Column(length = 10, nullable = false)
+    private Integer upvoteCount;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -62,6 +67,14 @@ public class Image implements Serializable {
     public void setImage_location(String image_location) {
         this.image_location = image_location;
     }
+
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -90,6 +103,8 @@ public class Image implements Serializable {
             "id=" + getId() +
             ", crypto_user='" + getCrypto_user() + "'" +
             ", image_location='" + getImage_location() + "'" +
+            ", upvoteCount='" + getUpvoteCount() + "'" +
             "}";
     }
+
 }

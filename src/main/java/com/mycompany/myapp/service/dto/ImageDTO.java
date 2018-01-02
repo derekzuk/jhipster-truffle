@@ -15,6 +15,8 @@ public class ImageDTO implements Serializable {
 
     private String image_location;
 
+    private String upvoteCount;
+
     public Long getId() {
         return id;
     }
@@ -37,6 +39,14 @@ public class ImageDTO implements Serializable {
 
     public void setImage_location(String image_location) {
         this.image_location = image_location;
+    }
+
+    public String getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(String upvoteCount) {
+        this.upvoteCount = upvoteCount;
     }
 
     @Override
@@ -66,6 +76,8 @@ public class ImageDTO implements Serializable {
             "id=" + getId() +
             ", crypto_user='" + getCrypto_user() + "'" +
             ", image_location='" + getImage_location() + "'" +
+            ", upvoteCount='" + getUpvoteCount() + "'" +
             "}";
     }
+
 }

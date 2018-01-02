@@ -73,7 +73,7 @@ images: Image[];
     console.log('in submitImage() attempting to upload image:' + this.uploadedImage);
     console.log(this.uploadedImage);
 
-    const imageModel = new Image(null, 'abc', 'crypto user string');
+    const imageModel = new Image(null, 'abc', 'img/location.jpg', 1);
 
     this.subscribeToSaveResponse(
         this.imageService.create(imageModel));

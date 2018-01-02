@@ -5,6 +5,7 @@ export class Image implements BaseEntity {
         public id?: number,
         public crypto_user?: string,
         public image_location?: string,
+        public upvoteCount?: any
     ) {
     }
 }
