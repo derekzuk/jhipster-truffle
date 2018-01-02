@@ -11,7 +11,6 @@ import { Jhiptruffle2AdminModule } from './admin/admin.module';
 import { Jhiptruffle2AccountModule } from './account/account.module';
 import { Jhiptruffle2EntityModule } from './entities/entity.module';
 import { MetaModule } from './meta/meta.module';
-import { ImgUploadModule } from './img-upload/img-upload.module';
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 
@@ -37,7 +36,6 @@ import {
         Jhiptruffle2AccountModule,
         Jhiptruffle2EntityModule,
         MetaModule,
-        ImgUploadModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
