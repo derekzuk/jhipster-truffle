@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Objects;
 
 /**

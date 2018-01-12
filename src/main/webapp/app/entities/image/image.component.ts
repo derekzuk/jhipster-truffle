@@ -15,8 +15,9 @@ export class ImageComponent implements OnInit, OnDestroy {
 images: Image[];
     currentAccount: any;
     eventSubscriber: Subscription;
-      url = require('../../../content/images/rainbowskele.jpg');
-      uploadedImage;
+    url = require('../../../content/images/rainbowskele.jpg');
+    imageBlob;
+    uploadedImage;
 
     constructor(
         private imageService: ImageService,
@@ -61,10 +62,24 @@ images: Image[];
     if (event.target.files && event.target.files[0]) {
         this.uploadedImage = event.target.files[0];
 
+        console.log("event.target.files[0]:" + event.target.files[0]);
+
+        var blob = new Blob([event.target.files[0]], { type: "image/jpeg"});
+        console.log("blob:" + blob);
+        var blobUrl = URL.createObjectURL(blob);
+        console.log("blobUrl: " + blobUrl);
+
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]); // read file as data url
         reader.onload = (event:any) => { // called once readAsDataURL is completed
-        this.url = event.target.result;
+            this.url = event.target.result;
+        try {
+            localStorage.setItem("filething", this.uploadedImage);
+            console.log('file saved successfully?');
+        }
+        catch (e) {
+            console.log("Storage failed: " + e);
+        }
       }
     }
   }
@@ -73,10 +88,13 @@ images: Image[];
     console.log('in submitImage() attempting to upload image:' + this.uploadedImage);
     console.log(this.uploadedImage);
 
-    const imageModel = new Image(null, 'abc', 'img/location.jpg', 1);
+    const imageModel = new Image(null, 'abc', 'img/location.jpg', 1, this.url);
+
+    console.log("imageModel: " + imageModel);
 
     this.subscribeToSaveResponse(
-        this.imageService.create(imageModel));
+        this.imageService.create(imageModel)
+    );
   }
 
 

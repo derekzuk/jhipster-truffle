@@ -6,16 +6,24 @@ import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.service.dto.ImageDTO;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletContext;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
+import java.util.Base64;
+
+import static java.util.Base64.*;
 
 /**
  * REST controller for managing Image.
@@ -34,6 +42,9 @@ public class ImageResource {
         this.imageService = imageService;
     }
 
+    @Autowired
+    ServletContext context;
+
     /**
      * POST  /images : Create a new image.
      *
@@ -43,11 +54,33 @@ public class ImageResource {
      */
     @PostMapping("/images")
     @Timed
-    public ResponseEntity<ImageDTO> createImage(@RequestBody ImageDTO imageDTO) throws URISyntaxException {
+    public ResponseEntity<ImageDTO> createImage(@RequestBody ImageDTO imageDTO) throws URISyntaxException, IOException {
         log.debug("REST request to save Image : {}", imageDTO);
         if (imageDTO.getId() != null) {
             throw new BadRequestAlertException("A new image cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        String formattedBase64Image = imageDTO.getImageBase64().split(",")[1];
+        byte[] decodedImage = Base64.getDecoder().decode(formattedBase64Image);
+
+        String dir = context.getRealPath("/")+"/images/";
+        new File(dir).exists();
+
+        int num = 0;
+        String save = num + ".jpg";
+        File file = new File(dir, save);
+        while(file.exists()) {
+            save = (num++) +".jpg";
+            file = new File(dir, save);
+        }
+
+        String directory = context.getRealPath("/")+"/images/sample.jpg";
+
+        log.error("file.getPath(): " + file.getPath());
+        new FileOutputStream(file.getPath()).write(decodedImage);
+
+        imageDTO.setImage_location(file.getPath());
+
         ImageDTO result = imageService.save(imageDTO);
         return ResponseEntity.created(new URI("/api/images/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -65,7 +98,7 @@ public class ImageResource {
      */
     @PutMapping("/images")
     @Timed
-    public ResponseEntity<ImageDTO> updateImage(@RequestBody ImageDTO imageDTO) throws URISyntaxException {
+    public ResponseEntity<ImageDTO> updateImage(@RequestBody ImageDTO imageDTO) throws URISyntaxException, IOException {
         log.debug("REST request to update Image : {}", imageDTO);
         if (imageDTO.getId() == null) {
             return createImage(imageDTO);
