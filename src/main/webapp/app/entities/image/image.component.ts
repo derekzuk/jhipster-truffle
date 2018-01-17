@@ -62,23 +62,23 @@ images: Image[];
     if (event.target.files && event.target.files[0]) {
         this.uploadedImage = event.target.files[0];
 
-        console.log("event.target.files[0]:" + event.target.files[0]);
+        console.log('event.target.files[0]:' + event.target.files[0]);
 
-        var blob = new Blob([event.target.files[0]], { type: "image/jpeg"});
-        console.log("blob:" + blob);
-        var blobUrl = URL.createObjectURL(blob);
-        console.log("blobUrl: " + blobUrl);
+        const blob = new Blob([event.target.files[0]], { type: 'image/jpeg'});
+        console.log('blob:' + blob);
+        const blobUrl = URL.createObjectURL(blob);
+        console.log('blobUrl: ' + blobUrl);
 
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]); // read file as data url
         reader.onload = (event:any) => { // called once readAsDataURL is completed
             this.url = event.target.result;
         try {
-            localStorage.setItem("filething", this.uploadedImage);
+            localStorage.setItem('filething', this.uploadedImage);
             console.log('file saved successfully?');
         }
         catch (e) {
-            console.log("Storage failed: " + e);
+            console.log('Storage failed: ' + e);
         }
       }
     }
@@ -90,13 +90,12 @@ images: Image[];
 
     const imageModel = new Image(null, 'abc', 'img/location.jpg', 1, this.url);
 
-    console.log("imageModel: " + imageModel);
+    console.log('imageModel: ' + imageModel);
 
     this.subscribeToSaveResponse(
         this.imageService.create(imageModel)
     );
   }
-
 
     private subscribeToSaveResponse(result: Observable<Image>) {
         result.subscribe((res: Image) =>

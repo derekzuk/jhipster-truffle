@@ -63,20 +63,20 @@ public class ImageResource {
         String formattedBase64Image = imageDTO.getImageBase64().split(",")[1];
         byte[] decodedImage = Base64.getDecoder().decode(formattedBase64Image);
 
-        String dir = context.getRealPath("/")+"/images/";
-        new File(dir).exists();
+        String dirString = context.getRealPath("/")+"/images/";
+        File directory = new File(dirString);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
 
         int num = 0;
         String save = num + ".jpg";
-        File file = new File(dir, save);
+        File file = new File(dirString, save);
         while(file.exists()) {
             save = (num++) +".jpg";
-            file = new File(dir, save);
+            file = new File(dirString, save);
         }
 
-        String directory = context.getRealPath("/")+"/images/sample.jpg";
-
-        log.error("file.getPath(): " + file.getPath());
         new FileOutputStream(file.getPath()).write(decodedImage);
 
         imageDTO.setImage_location(file.getPath());

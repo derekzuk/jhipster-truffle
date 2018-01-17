@@ -11,10 +11,6 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface ImageMapper extends EntityMapper<ImageDTO, Image> {
 
-    
-
-    
-
     default Image fromId(Long id) {
         if (id == null) {
             return null;

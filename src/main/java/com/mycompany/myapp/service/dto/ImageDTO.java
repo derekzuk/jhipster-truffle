@@ -16,7 +16,7 @@ public class ImageDTO implements Serializable {
 
     private String image_location;
 
-    private String upvoteCount;
+    private Integer upvoteCount;
 
     private String imageBase64;
 
@@ -44,11 +44,11 @@ public class ImageDTO implements Serializable {
         this.image_location = image_location;
     }
 
-    public String getUpvoteCount() {
+    public Integer getUpvoteCount() {
         return upvoteCount;
     }
 
-    public void setUpvoteCount(String upvoteCount) {
+    public void setUpvoteCount(Integer upvoteCount) {
         this.upvoteCount = upvoteCount;
     }
 
