@@ -12,7 +12,7 @@ import { Principal, ResponseWrapper } from '../../shared';
     templateUrl: './image.component.html'
 })
 export class ImageComponent implements OnInit, OnDestroy {
-images: Image[];
+    images: Image[];
     currentAccount: any;
     eventSubscriber: Subscription;
     url = require('../../../content/images/rainbowskele.jpg');
@@ -31,6 +31,8 @@ images: Image[];
         this.imageService.query().subscribe(
             (res: ResponseWrapper) => {
                 this.images = res.json;
+                console.log("this.images: " + this.images);
+                console.log(this.images[0]);
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );

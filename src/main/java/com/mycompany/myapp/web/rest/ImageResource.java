@@ -70,16 +70,16 @@ public class ImageResource {
         }
 
         int num = 0;
-        String save = num + ".jpg";
-        File file = new File(dirString, save);
+        String fileName = num + ".jpg";
+        File file = new File(dirString, fileName);
         while(file.exists()) {
-            save = (num++) +".jpg";
-            file = new File(dirString, save);
+            fileName = (num++) +".jpg";
+            file = new File(dirString, fileName);
         }
 
         new FileOutputStream(file.getPath()).write(decodedImage);
 
-        imageDTO.setImage_location(file.getPath());
+        imageDTO.setImage_location("images/" + fileName);
 
         ImageDTO result = imageService.save(imageDTO);
         return ResponseEntity.created(new URI("/api/images/" + result.getId()))

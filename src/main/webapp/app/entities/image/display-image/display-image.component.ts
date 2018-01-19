@@ -12,10 +12,10 @@ import { Principal, ResponseWrapper } from '../../../shared';
     templateUrl: '../image.component.html'
 })
 export class ImageComponent implements OnInit, OnDestroy {
-images: Image[];
+    images: Image[];
     currentAccount: any;
     eventSubscriber: Subscription;
-    imagesToDisplay;
+    displayImages;
 
     constructor(
         private imageService: ImageService,
@@ -26,9 +26,11 @@ images: Image[];
     }
 
     loadAll() {
+        console.log("attemping loadAll() query");
         this.imageService.query().subscribe(
             (res: ResponseWrapper) => {
                 this.images = res.json;
+                console.log("this.images: " + this.images);
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
@@ -40,7 +42,6 @@ images: Image[];
             this.currentAccount = account;
         });
         this.registerChangeInImages();
-        this.getImages();
     }
 
     ngOnDestroy() {
@@ -59,8 +60,8 @@ images: Image[];
     }
 
     private getImages() {
-        this.imagesToDisplay = this.imageService.query();
-        console.log("imagesToDisplay: " + this.imagesToDisplay);
+        this.displayImages = this.imageService.query();
+        console.log("displayImages: " + this.displayImages);
     }
 
 
