@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
 import { ImageComponent } from './image.component';
+import { DisplayImageComponent } from './display-image.component';
 import { ImageDetailComponent } from './image-detail.component';
 import { ImagePopupComponent } from './image-dialog.component';
 import { ImageDeletePopupComponent } from './image-delete-dialog.component';
@@ -16,11 +17,11 @@ export const imageRoute: Routes = [
         },
         canActivate: [UserRouteAccessService]
     }, {
-        path: 'image/:id',
-        component: ImageDetailComponent,
+        path: 'image/display-image',
+        component: DisplayImageComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Images'
+            pageTitle: 'Display Images'
         },
         canActivate: [UserRouteAccessService]
     }

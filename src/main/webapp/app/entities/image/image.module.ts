@@ -6,6 +6,7 @@ import {
     ImageService,
     ImagePopupService,
     ImageComponent,
+    DisplayImageComponent,
     ImageDetailComponent,
     ImageDialogComponent,
     ImagePopupComponent,
@@ -27,6 +28,7 @@ const ENTITY_STATES = [
     ],
     declarations: [
         ImageComponent,
+        DisplayImageComponent,
         ImageDetailComponent,
         ImageDialogComponent,
         ImageDeleteDialogComponent,

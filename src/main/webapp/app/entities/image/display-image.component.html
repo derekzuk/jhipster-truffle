@@ -1,0 +1,8 @@
+<div *ngFor="let image of images">
+    {{image.id}}
+    <img [src]="image.image_location" height="500"> <br/>
+</div>
+
+<div>
+    <a routerLink="../">Submit an Image</a>
+</div>
