@@ -18,6 +18,20 @@ export class MetaSenderComponent implements OnInit {
     account: ''
   };
 
+  ethereumModel = {
+    amount: 0,
+    receiver: '',
+    balance: 0,
+    account: ''
+    }
+
+  ERC20Model = {
+    amount: 0,
+    receiver: '',
+    balance: 0,
+    account: ''
+    }
+
   status = '';
 
   constructor(private web3Service: Web3Service) {
@@ -79,10 +93,14 @@ export class MetaSenderComponent implements OnInit {
     console.log('Refreshing balance');
 
     try {
+      this.ethereumModel.balance = await this.web3Service.getEthBalance(this.model.account);
+      this.ERC20Model.balance = await this.web3Service.getERC20Balance(this.model.account);
+
       const deployedMetaCoin = await this.MetaCoin.deployed();
       const metaCoinBalance = await deployedMetaCoin.getBalance.call(this.model.account);
       console.log('Found balance: ' + metaCoinBalance);
       this.model.balance = metaCoinBalance;
+
     } catch (e) {
       console.log(e);
       this.setStatus('Error getting balance; see log.');

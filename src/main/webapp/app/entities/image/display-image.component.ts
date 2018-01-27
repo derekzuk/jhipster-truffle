@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Observable } from 'rxjs/Rx';
+import {Web3Service} from '../../util/web3.service';
 
 import { Image } from './image.model';
 import { ImageService } from './image.service';
@@ -12,6 +13,7 @@ import { Principal, ResponseWrapper } from '../../shared';
     templateUrl: './display-image.component.html'
 })
 export class DisplayImageComponent implements OnInit, OnDestroy {
+    accounts: string[];
     images: Image[];
     currentAccount: any;
     eventSubscriber: Subscription;
@@ -19,11 +21,19 @@ export class DisplayImageComponent implements OnInit, OnDestroy {
     imageBlob;
     uploadedImage;
 
+  ethereumModel = {
+    amount: 0,
+    receiver: '',
+    balance: 0,
+    account: ''
+    }
+
     constructor(
         private imageService: ImageService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private web3Service: Web3Service
     ) {
     }
 
@@ -43,6 +53,7 @@ export class DisplayImageComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInImages();
+        this.watchAccount();
     }
 
     ngOnDestroy() {
@@ -110,4 +121,22 @@ export class DisplayImageComponent implements OnInit, OnDestroy {
 
     private onSaveError() {
     }
+
+  watchAccount() {
+    this.web3Service.accountsObservable.subscribe((accounts) => {
+      this.accounts = accounts;
+      this.ethereumModel.account = accounts[0];
+      this.refreshBalance();
+    });
+  }
+
+  async refreshBalance() {
+    console.log('Refreshing balance');
+
+    try {
+      this.ethereumModel.balance = await this.web3Service.getEthBalance(this.ethereumModel.account);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
