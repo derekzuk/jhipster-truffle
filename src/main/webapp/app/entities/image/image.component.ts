@@ -119,7 +119,7 @@ export class ImageComponent implements OnInit, OnDestroy {
     console.log('in submitImage() attempting to upload image:' + this.uploadedImage);
     console.log(this.uploadedImage);
 
-    const imageModel = new Image(null, 'abc', 'img/location.jpg', 1, this.url);
+    const imageModel = new Image(null, this.ethereumModel.account, 'img/location.jpg', 1, this.url);
 
     console.log('imageModel: ' + imageModel);
 
