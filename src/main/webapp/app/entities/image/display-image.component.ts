@@ -20,6 +20,7 @@ export class DisplayImageComponent implements OnInit, OnDestroy {
     url = require('../../../content/images/rainbowskele.jpg');
     imageBlob;
     uploadedImage;
+    retrievedImage;
 
   ethereumModel = {
     amount: 0,
@@ -139,4 +140,22 @@ export class DisplayImageComponent implements OnInit, OnDestroy {
       console.log(e);
     }
   }
+
+    vote(imageId) {
+        console.log('vote on imageId: ' + imageId);
+        this.imageService.find(imageId).subscribe((img) => {
+            if (img) {
+                this.retrievedImage = img;
+                console.log('Loaded image eth address: ' + this.retrievedImage.crypto_user);
+
+                const sender = this.ethereumModel.account;
+                const receiver = this.retrievedImage.crypto_user;
+                this.web3Service.sendEth(sender,receiver);
+
+                this.retrievedImage.upvoteCount = this.retrievedImage.upvoteCount + 1;
+                console.log('image to be saved: ' + this.retrievedImage);
+                this.imageService.update(this.retrievedImage).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
+            }
+        });
+    }
 }

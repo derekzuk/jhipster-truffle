@@ -89,4 +89,10 @@ export class Web3Service {
         let balance = MyContract.methods.balanceOf(ethaccount).call();
         return balance;
     }
+
+    public sendEth(sender, receiver) {
+        console.log('sender: ' + sender);
+        console.log('receiver: ' + receiver);
+        this.web3.eth.sendTransaction({from:sender, to:receiver, value: 1});
+    }
 }
