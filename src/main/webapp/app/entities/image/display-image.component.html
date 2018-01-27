@@ -1,6 +1,7 @@
 <div *ngFor="let image of images">
     {{image.id}}
     <img [src]="image.image_location" height="500"> <br/>
+    Total Votes: {{image.upvoteCount}}
 
     <form name="form" role="form" (ngSubmit)="vote(image.id)">
         <button type="submit" class="btn btn-primary">Vote! (1 ETH)</button>

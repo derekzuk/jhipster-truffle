@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,6 +55,7 @@ public class ImageService {
         log.debug("Request to get all Images");
         return imageRepository.findAll().stream()
             .map(imageMapper::toDto)
+            .sorted(Comparator.comparing(ImageDTO::getUpvoteCount).reversed())
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
