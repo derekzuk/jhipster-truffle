@@ -2,11 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Observable } from 'rxjs/Rx';
-import {Web3Service} from '../../util/web3.service';
+import { Web3Service } from '../../util/web3.service';
 
 import { Image } from './image.model';
 import { ImageService } from './image.service';
 import { Principal, ResponseWrapper } from '../../shared';
+import { PendingTransaction } from '../pending-transaction/pending-transaction.model';
+import { PendingTransactionService } from '../pending-transaction/pending-transaction.service';
 
 @Component({
     selector: 'jhi-display-image',
@@ -20,7 +22,6 @@ export class DisplayImageComponent implements OnInit, OnDestroy {
     url = require('../../../content/images/rainbowskele.jpg');
     imageBlob;
     uploadedImage;
-    retrievedImage;
 
   ethereumModel = {
     amount: 0,
@@ -32,9 +33,10 @@ export class DisplayImageComponent implements OnInit, OnDestroy {
     constructor(
         private imageService: ImageService,
         private jhiAlertService: JhiAlertService,
-        private eventManager: JhiEventManager,
         private principal: Principal,
-        private web3Service: Web3Service
+        private web3Service: Web3Service,
+        private pendingTransactionService: PendingTransactionService,
+        private eventManager: JhiEventManager
     ) {
     }
 
@@ -133,16 +135,30 @@ export class DisplayImageComponent implements OnInit, OnDestroy {
     vote(imageId) {
         this.imageService.find(imageId).subscribe((img) => {
             if (img) {
-                this.retrievedImage = img;
-
                 const sender = this.ethereumModel.account;
-                const receiver = this.retrievedImage.crypto_user;
-                this.web3Service.sendEth(sender,receiver);
+                const receiver = img.crypto_user;
+                let that = this;
+                this.web3Service.sendEth(sender,receiver, function(newTransactionHash) {
+                    console.log('newTransactionHash: ' + newTransactionHash);
+                    let newPendingTransaction = new PendingTransaction(null, sender, receiver, 1, newTransactionHash);
+                    that.subscribeToCreatePendingTransaction(
+                        that.pendingTransactionService.create(newPendingTransaction)
+                    );
+                });
 
                 // move this code to a scheduled job that waits for transactions to confirm before upvoting
-                this.retrievedImage.upvoteCount = this.retrievedImage.upvoteCount + 1;
-                this.imageService.update(this.retrievedImage).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
+                img.upvoteCount = img.upvoteCount + 1;
+                this.imageService.update(img).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
             }
         });
+    }
+
+    private subscribeToCreatePendingTransaction(result: Observable<PendingTransaction>) {
+        result.subscribe((res: PendingTransaction) =>
+            this.onSavePendingTransactionSuccess(res), (res: Response) => this.onSaveError());
+    }
+
+    private onSavePendingTransactionSuccess(result: PendingTransaction) {
+        this.eventManager.broadcast({ name: 'pendingTransactionModification', content: 'OK'});
     }
 }

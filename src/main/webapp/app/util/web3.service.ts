@@ -90,14 +90,12 @@ export class Web3Service {
         return balance;
     }
 
-    public sendEth(sender, receiver) {
+    public sendEth(sender, receiver, callback) {
         console.log('sender: ' + sender);
         console.log('receiver: ' + receiver);
-        this.web3.eth.sendTransaction({from:sender, to:receiver, value: 1}, function(err, transactionHash) {
-            if (!err) {
-                console.log(transactionHash);
-                // Add transactionHash to pendingVote table, run a scheduled job to upvote once transactions are confirmed?
-            }
+        this.web3.eth.sendTransaction({from:sender, to:receiver, value: 1}).on('transactionHash', function(hash){
+            console.log('hash: ' + hash);
+            callback(hash);
         });
     }
 }
