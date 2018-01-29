@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DTO for the PendingTransaction entity.
+ * A DTO for the PendingTransactionScheduler entity.
  */
 public class PendingTransactionDTO implements Serializable {
 

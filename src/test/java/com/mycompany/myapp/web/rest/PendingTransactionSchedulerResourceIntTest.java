@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Jhiptruffle2App.class)
-public class PendingTransactionResourceIntTest {
+public class PendingTransactionSchedulerResourceIntTest {
 
     private static final String DEFAULT_SENDER = "AAAAAAAAAA";
     private static final String UPDATED_SENDER = "BBBBBBBBBB";
@@ -110,14 +110,14 @@ public class PendingTransactionResourceIntTest {
     public void createPendingTransaction() throws Exception {
         int databaseSizeBeforeCreate = pendingTransactionRepository.findAll().size();
 
-        // Create the PendingTransaction
+        // Create the PendingTransactionScheduler
         PendingTransactionDTO pendingTransactionDTO = pendingTransactionMapper.toDto(pendingTransaction);
         restPendingTransactionMockMvc.perform(post("/api/pending-transactions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(pendingTransactionDTO)))
             .andExpect(status().isCreated());
 
-        // Validate the PendingTransaction in the database
+        // Validate the PendingTransactionScheduler in the database
         List<PendingTransaction> pendingTransactionList = pendingTransactionRepository.findAll();
         assertThat(pendingTransactionList).hasSize(databaseSizeBeforeCreate + 1);
         PendingTransaction testPendingTransaction = pendingTransactionList.get(pendingTransactionList.size() - 1);
@@ -132,7 +132,7 @@ public class PendingTransactionResourceIntTest {
     public void createPendingTransactionWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = pendingTransactionRepository.findAll().size();
 
-        // Create the PendingTransaction with an existing ID
+        // Create the PendingTransactionScheduler with an existing ID
         pendingTransaction.setId(1L);
         PendingTransactionDTO pendingTransactionDTO = pendingTransactionMapper.toDto(pendingTransaction);
 
@@ -142,7 +142,7 @@ public class PendingTransactionResourceIntTest {
             .content(TestUtil.convertObjectToJsonBytes(pendingTransactionDTO)))
             .andExpect(status().isBadRequest());
 
-        // Validate the PendingTransaction in the database
+        // Validate the PendingTransactionScheduler in the database
         List<PendingTransaction> pendingTransactionList = pendingTransactionRepository.findAll();
         assertThat(pendingTransactionList).hasSize(databaseSizeBeforeCreate);
     }
@@ -212,7 +212,7 @@ public class PendingTransactionResourceIntTest {
             .content(TestUtil.convertObjectToJsonBytes(pendingTransactionDTO)))
             .andExpect(status().isOk());
 
-        // Validate the PendingTransaction in the database
+        // Validate the PendingTransactionScheduler in the database
         List<PendingTransaction> pendingTransactionList = pendingTransactionRepository.findAll();
         assertThat(pendingTransactionList).hasSize(databaseSizeBeforeUpdate);
         PendingTransaction testPendingTransaction = pendingTransactionList.get(pendingTransactionList.size() - 1);
@@ -227,7 +227,7 @@ public class PendingTransactionResourceIntTest {
     public void updateNonExistingPendingTransaction() throws Exception {
         int databaseSizeBeforeUpdate = pendingTransactionRepository.findAll().size();
 
-        // Create the PendingTransaction
+        // Create the PendingTransactionScheduler
         PendingTransactionDTO pendingTransactionDTO = pendingTransactionMapper.toDto(pendingTransaction);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
@@ -236,7 +236,7 @@ public class PendingTransactionResourceIntTest {
             .content(TestUtil.convertObjectToJsonBytes(pendingTransactionDTO)))
             .andExpect(status().isCreated());
 
-        // Validate the PendingTransaction in the database
+        // Validate the PendingTransactionScheduler in the database
         List<PendingTransaction> pendingTransactionList = pendingTransactionRepository.findAll();
         assertThat(pendingTransactionList).hasSize(databaseSizeBeforeUpdate + 1);
     }

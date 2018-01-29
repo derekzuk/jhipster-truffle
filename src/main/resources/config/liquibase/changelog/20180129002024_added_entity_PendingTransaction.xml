@@ -15,7 +15,7 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity PendingTransaction.
+        Added the entPendingTransactionSchedulertion.
     -->
     <changeSet id="20180129002024-1" author="jhipster">
         <createTable tableName="pending_transaction">
@@ -40,7 +40,7 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

@@ -6,14 +6,14 @@ import com.mycompany.myapp.service.dto.PendingTransactionDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity PendingTransaction and its DTO PendingTransactionDTO.
+ * Mapper for the entity PendingTransactionScheduler and its DTO PendingTransactionDTO.
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface PendingTransactionMapper extends EntityMapper<PendingTransactionDTO, PendingTransaction> {
 
-    
 
-    
+
+
 
     default PendingTransaction fromId(Long id) {
         if (id == null) {

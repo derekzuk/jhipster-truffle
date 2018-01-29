@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A PendingTransaction.
+ * A PendingTransactionScheduler.
  */
 @Entity
 @Table(name = "pending_transaction")
@@ -118,7 +118,7 @@ public class PendingTransaction implements Serializable {
 
     @Override
     public String toString() {
-        return "PendingTransaction{" +
+        return "PendingTransactionScheduler{" +
             "id=" + getId() +
             ", sender='" + getSender() + "'" +
             ", receiver='" + getReceiver() + "'" +
