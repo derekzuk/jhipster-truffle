@@ -21,6 +21,7 @@
             <th><span>Receiver</span></th>
             <th><span>Token Quantity</span></th>
             <th><span>Transaction Hash</span></th>
+            <th><span>Image</span></th>
             <th></th>
             </tr>
             </thead>
@@ -31,6 +32,11 @@
                 <td>{{pendingTransaction.receiver}}</td>
                 <td>{{pendingTransaction.tokenQuantity}}</td>
                 <td>{{pendingTransaction.transactionHash}}</td>
+                <td>
+                    <div *ngIf="pendingTransaction.imageId">
+                        <a [routerLink]="['../image', pendingTransaction.imageId  ]" >{{pendingTransaction.imageId}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

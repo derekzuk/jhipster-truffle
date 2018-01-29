@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A PendingTransactionScheduler.
+ * A PendingTransaction.
  */
 @Entity
 @Table(name = "pending_transaction")
@@ -33,6 +33,9 @@ public class PendingTransaction implements Serializable {
 
     @Column(name = "transaction_hash")
     private String transactionHash;
+
+    @ManyToOne
+    private Image image;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -94,6 +97,19 @@ public class PendingTransaction implements Serializable {
     public void setTransactionHash(String transactionHash) {
         this.transactionHash = transactionHash;
     }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public PendingTransaction image(Image image) {
+        this.image = image;
+        return this;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -118,7 +134,7 @@ public class PendingTransaction implements Serializable {
 
     @Override
     public String toString() {
-        return "PendingTransactionScheduler{" +
+        return "PendingTransaction{" +
             "id=" + getId() +
             ", sender='" + getSender() + "'" +
             ", receiver='" + getReceiver() + "'" +

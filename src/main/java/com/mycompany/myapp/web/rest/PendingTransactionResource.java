@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * REST controller for managing PendingTransactionScheduler.
+ * REST controller for managing PendingTransaction.
  */
 @RestController
 @RequestMapping("/api")
@@ -50,7 +50,7 @@ public class PendingTransactionResource {
     @PostMapping("/pending-transactions")
     @Timed
     public ResponseEntity<PendingTransactionDTO> createPendingTransaction(@RequestBody PendingTransactionDTO pendingTransactionDTO) throws URISyntaxException {
-        log.debug("REST request to save PendingTransactionScheduler : {}", pendingTransactionDTO);
+        log.debug("REST request to save PendingTransaction : {}", pendingTransactionDTO);
         if (pendingTransactionDTO.getId() != null) {
             throw new BadRequestAlertException("A new pendingTransaction cannot already have an ID", ENTITY_NAME, "idexists");
         }
@@ -74,7 +74,7 @@ public class PendingTransactionResource {
     @PutMapping("/pending-transactions")
     @Timed
     public ResponseEntity<PendingTransactionDTO> updatePendingTransaction(@RequestBody PendingTransactionDTO pendingTransactionDTO) throws URISyntaxException {
-        log.debug("REST request to update PendingTransactionScheduler : {}", pendingTransactionDTO);
+        log.debug("REST request to update PendingTransaction : {}", pendingTransactionDTO);
         if (pendingTransactionDTO.getId() == null) {
             return createPendingTransaction(pendingTransactionDTO);
         }
@@ -108,7 +108,7 @@ public class PendingTransactionResource {
     @GetMapping("/pending-transactions/{id}")
     @Timed
     public ResponseEntity<PendingTransactionDTO> getPendingTransaction(@PathVariable Long id) {
-        log.debug("REST request to get PendingTransactionScheduler : {}", id);
+        log.debug("REST request to get PendingTransaction : {}", id);
         PendingTransaction pendingTransaction = pendingTransactionRepository.findOne(id);
         PendingTransactionDTO pendingTransactionDTO = pendingTransactionMapper.toDto(pendingTransaction);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(pendingTransactionDTO));
@@ -123,7 +123,7 @@ public class PendingTransactionResource {
     @DeleteMapping("/pending-transactions/{id}")
     @Timed
     public ResponseEntity<Void> deletePendingTransaction(@PathVariable Long id) {
-        log.debug("REST request to delete PendingTransactionScheduler : {}", id);
+        log.debug("REST request to delete PendingTransaction : {}", id);
         pendingTransactionRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }

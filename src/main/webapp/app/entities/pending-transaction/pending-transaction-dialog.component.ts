@@ -4,11 +4,13 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { PendingTransaction } from './pending-transaction.model';
 import { PendingTransactionPopupService } from './pending-transaction-popup.service';
 import { PendingTransactionService } from './pending-transaction.service';
+import { Image, ImageService } from '../image';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-pending-transaction-dialog',
@@ -19,15 +21,21 @@ export class PendingTransactionDialogComponent implements OnInit {
     pendingTransaction: PendingTransaction;
     isSaving: boolean;
 
+    images: Image[];
+
     constructor(
         public activeModal: NgbActiveModal,
+        private jhiAlertService: JhiAlertService,
         private pendingTransactionService: PendingTransactionService,
+        private imageService: ImageService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
+        this.imageService.query()
+            .subscribe((res: ResponseWrapper) => { this.images = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -58,6 +66,14 @@ export class PendingTransactionDialogComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
+    }
+
+    trackImageById(index: number, item: Image) {
+        return item.id;
     }
 }
 

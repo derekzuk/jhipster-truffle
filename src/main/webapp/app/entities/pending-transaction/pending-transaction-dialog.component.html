@@ -33,6 +33,13 @@
                 [(ngModel)]="pendingTransaction.transactionHash" />
         </div>
 
+        <div class="form-group">
+            <label class="form-control-label" for="field_image">Image</label>
+            <select class="form-control" id="field_image" name="image" [(ngModel)]="pendingTransaction.imageId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="imageOption.id" *ngFor="let imageOption of images; trackBy: trackImageById">{{imageOption.id}}</option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

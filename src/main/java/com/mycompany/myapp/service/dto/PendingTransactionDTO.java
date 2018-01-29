@@ -2,10 +2,12 @@ package com.mycompany.myapp.service.dto;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
- * A DTO for the PendingTransactionScheduler entity.
+ * A DTO for the PendingTransaction entity.
  */
 public class PendingTransactionDTO implements Serializable {
 
@@ -18,6 +20,8 @@ public class PendingTransactionDTO implements Serializable {
     private Integer tokenQuantity;
 
     private String transactionHash;
+
+    private Long imageId;
 
     public Long getId() {
         return id;
@@ -57,6 +61,14 @@ public class PendingTransactionDTO implements Serializable {
 
     public void setTransactionHash(String transactionHash) {
         this.transactionHash = transactionHash;
+    }
+
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
     }
 
     @Override

@@ -7,6 +7,7 @@ export class PendingTransaction implements BaseEntity {
         public receiver?: string,
         public tokenQuantity?: number,
         public transactionHash?: string,
+        public imageId?: number,
     ) {
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.*;
 
 
 /**
- * Spring Data JPA repository for the PendingTransactionScheduler entity.
+ * Spring Data JPA repository for the PendingTransaction entity.
  */
 @SuppressWarnings("unused")
 @Repository

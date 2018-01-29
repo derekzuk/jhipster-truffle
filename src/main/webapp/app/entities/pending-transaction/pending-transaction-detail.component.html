@@ -20,6 +20,12 @@
         <dd>
             <span>{{pendingTransaction.transactionHash}}</span>
         </dd>
+        <dt><span>Image</span></dt>
+        <dd>
+            <div *ngIf="pendingTransaction.imageId">
+                <a [routerLink]="['/image', pendingTransaction.imageId]">{{pendingTransaction.imageId}}</a>
+            </div>
+        </dd>
     </dl>
 
     <button type="submit"

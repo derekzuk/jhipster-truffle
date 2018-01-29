@@ -8,6 +8,7 @@ import { Jhiptruffle2TestModule } from '../../../test.module';
 import { PendingTransactionDialogComponent } from '../../../../../../main/webapp/app/entities/pending-transaction/pending-transaction-dialog.component';
 import { PendingTransactionService } from '../../../../../../main/webapp/app/entities/pending-transaction/pending-transaction.service';
 import { PendingTransaction } from '../../../../../../main/webapp/app/entities/pending-transaction/pending-transaction.model';
+import { ImageService } from '../../../../../../main/webapp/app/entities/image';
 
 describe('Component Tests', () => {
 
@@ -23,6 +24,7 @@ describe('Component Tests', () => {
                 imports: [Jhiptruffle2TestModule],
                 declarations: [PendingTransactionDialogComponent],
                 providers: [
+                    ImageService,
                     PendingTransactionService
                 ]
             })
