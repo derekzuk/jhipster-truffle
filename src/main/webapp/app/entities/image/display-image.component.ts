@@ -137,18 +137,15 @@ export class DisplayImageComponent implements OnInit, OnDestroy {
             if (img) {
                 const sender = this.ethereumModel.account;
                 const receiver = img.crypto_user;
+                const imageId = img.id;
                 let that = this;
                 this.web3Service.sendEth(sender,receiver, function(newTransactionHash) {
                     console.log('newTransactionHash: ' + newTransactionHash);
-                    let newPendingTransaction = new PendingTransaction(null, sender, receiver, 1, newTransactionHash);
+                    let newPendingTransaction = new PendingTransaction(null, sender, receiver, 1, newTransactionHash, imageId);
                     that.subscribeToCreatePendingTransaction(
                         that.pendingTransactionService.create(newPendingTransaction)
                     );
                 });
-
-                // move this code to a scheduled job that waits for transactions to confirm before upvoting
-                img.upvoteCount = img.upvoteCount + 1;
-                this.imageService.update(img).subscribe((response) => this.onSaveSuccess(response), () => this.onSaveError());
             }
         });
     }
