@@ -41,8 +41,6 @@ export class ImageComponent implements OnInit, OnDestroy {
         this.imageService.query().subscribe(
             (res: ResponseWrapper) => {
                 this.images = res.json;
-                console.log("this.images: " + this.images);
-                console.log(this.images[0]);
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
@@ -65,8 +63,6 @@ export class ImageComponent implements OnInit, OnDestroy {
   }
 
   async refreshBalance() {
-    console.log('Refreshing balance');
-
     try {
       this.ethereumModel.balance = await this.web3Service.getEthBalance(this.ethereumModel.account);
     } catch (e) {
@@ -81,6 +77,7 @@ export class ImageComponent implements OnInit, OnDestroy {
     trackId(index: number, item: Image) {
         return item.id;
     }
+
     registerChangeInImages() {
         this.eventSubscriber = this.eventManager.subscribe('imageListModification', (response) => this.loadAll());
     }
@@ -93,12 +90,8 @@ export class ImageComponent implements OnInit, OnDestroy {
     if (event.target.files && event.target.files[0]) {
         this.uploadedImage = event.target.files[0];
 
-        console.log('event.target.files[0]:' + event.target.files[0]);
-
         const blob = new Blob([event.target.files[0]], { type: 'image/jpeg'});
-        console.log('blob:' + blob);
         const blobUrl = URL.createObjectURL(blob);
-        console.log('blobUrl: ' + blobUrl);
 
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]); // read file as data url
@@ -106,7 +99,6 @@ export class ImageComponent implements OnInit, OnDestroy {
             this.url = event.target.result;
         try {
             localStorage.setItem('filething', this.uploadedImage);
-            console.log('file saved successfully?');
         }
         catch (e) {
             console.log('Storage failed: ' + e);
@@ -117,11 +109,8 @@ export class ImageComponent implements OnInit, OnDestroy {
 
   submitImage(event) {
     console.log('in submitImage() attempting to upload image:' + this.uploadedImage);
-    console.log(this.uploadedImage);
 
     const imageModel = new Image(null, this.ethereumModel.account, 'img/location.jpg', 1, this.url);
-
-    console.log('imageModel: ' + imageModel);
 
     this.subscribeToSaveResponse(
         this.imageService.create(imageModel)
