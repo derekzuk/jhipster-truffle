@@ -48,6 +48,7 @@ public class PendingTransactionScheduler {
             log.debug("Processing pending transaction: " + pendingTransaction.toString());
             Optional<TransactionReceipt> transactionReceipt = web3.ethGetTransactionReceipt(pendingTransaction.getTransactionHash()).sendAsync().get().getTransactionReceipt();
 
+            // TODO: ensure that the transaction is confirmed before proceeding
             if (transactionReceipt.isPresent()) {
                 // Update vote count
                 Image imageToBeUpvoted = imageRepository.findOne(pendingTransaction.getImage().getId());
