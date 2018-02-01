@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Web3Service} from '../../util/web3.service';
 import metacoin_artifacts = require('../../../../../../build/contracts/MetaCoin.json');
+import erc20token_artifacts = require('../../../../../../build/contracts/FuckToken.json');
 
 @Component({
   selector: 'jhi-app-meta-sender',
@@ -10,6 +11,7 @@ import metacoin_artifacts = require('../../../../../../build/contracts/MetaCoin.
 export class MetaSenderComponent implements OnInit {
   accounts: string[];
   MetaCoin: any;
+  ERC20Token: any;
 
   model = {
     amount: 5,
@@ -46,6 +48,12 @@ export class MetaSenderComponent implements OnInit {
     this.web3Service.artifactsToContract(metacoin_artifacts)
       .then((MetaCoinAbstraction) => {
         this.MetaCoin = MetaCoinAbstraction;
+      });
+
+    console.log('erc20token_artifacts:' + erc20token_artifacts);
+    this.web3Service.artifactsToContract(erc20token_artifacts)
+      .then((ERC20Abstraction) => {
+        this.ERC20Token = ERC20Abstraction;
       });
   }
 
@@ -95,6 +103,11 @@ export class MetaSenderComponent implements OnInit {
     try {
       this.ethereumModel.balance = await this.web3Service.getEthBalance(this.model.account);
       this.ERC20Model.balance = await this.web3Service.getERC20Balance(this.model.account);
+
+        const deployedERC20Coin = await this.ERC20Token.deployed();
+        const ERC20TokenBalance = await deployedERC20Coin.balanceOf.call(this.model.account);
+      console.log('Found ERC20 token balance: ' + ERC20TokenBalance);
+      this.ERC20Model.balance = ERC20TokenBalance;
 
       const deployedMetaCoin = await this.MetaCoin.deployed();
       const metaCoinBalance = await deployedMetaCoin.getBalance.call(this.model.account);
