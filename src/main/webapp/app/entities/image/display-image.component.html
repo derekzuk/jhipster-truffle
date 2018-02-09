@@ -1,17 +1,30 @@
-<div *ngFor="let image of images">
-    {{image.id}}
-    <img [src]="image.image_location" height="500"> <br/>
-    Total Votes: {{image.upvoteCount}}
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Top Voted Submissions</h1>
+        <p class="lead text-muted">This is a list of the top voted submissions. Submit a vote from this page for you favorite image and a token will be sent to the submitter's address!</p>
+        <h3>You have <span id="balance">{{ethereumModel.balance}}</span> ETH</h3>
+        <p>
+            <a routerLink="../" class="btn btn-primary">I want to make a submission myself!</a>
+        </p>
+    </div>
+</section>
 
-    <form name="form" role="form" (ngSubmit)="vote(image.id)">
-        <button type="submit" class="btn btn-primary">Vote! (1 ETH)</button>
-    </form>
-</div>
+<div class="album text-muted">
+    <div class="container">
 
-<div>
-    <a routerLink="../">Submit an Image</a>
-</div>
+        <div class="row">
 
-<div>
-    <h3>You have <span id="balance">{{ethereumModel.balance}}</span> ETH</h3>
+        <div class="card" *ngFor="let image of images">
+            {{image.id}}
+            <img [src]="image.image_location" height="500"> <br/>
+            Total Votes: {{image.upvoteCount}}
+
+            <form name="form" role="form" (ngSubmit)="vote(image.id)">
+                <button type="submit" class="btn btn-primary">Vote! (1 ETH)</button>
+            </form>
+        </div>
+
+        </div>
+
+    </div>
 </div>

@@ -12,7 +12,10 @@ import { PendingTransactionService } from '../pending-transaction/pending-transa
 
 @Component({
     selector: 'jhi-display-image',
-    templateUrl: './display-image.component.html'
+    templateUrl: './display-image.component.html',
+    styleUrls: [
+        'album.css'
+    ]
 })
 export class DisplayImageComponent implements OnInit, OnDestroy {
     accounts: string[];
