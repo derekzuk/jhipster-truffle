@@ -27,7 +27,7 @@ export class ImageComponent implements OnInit, OnDestroy {
   ethereumModel = {
     amount: 0,
     receiver: '',
-    balance: 0,
+    balance: '',
     account: ''
     }
 
@@ -65,9 +65,12 @@ export class ImageComponent implements OnInit, OnDestroy {
     });
   }
 
-  async refreshBalance() {
+  refreshBalance() {
+    let that = this;
     try {
-      this.ethereumModel.balance = await this.web3Service.getEthBalance(this.ethereumModel.account);
+      this.web3Service.getEthBalance(this.ethereumModel.account, function (data) {
+        that.ethereumModel.balance = data;
+    });
     } catch (e) {
       console.log(e);
     }

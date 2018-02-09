@@ -23,7 +23,7 @@ export class MetaSenderComponent implements OnInit {
   ethereumModel = {
     amount: 0,
     receiver: '',
-    balance: 0,
+    balance: '',
     account: ''
     }
 
@@ -101,7 +101,9 @@ export class MetaSenderComponent implements OnInit {
     console.log('Refreshing balance');
 
     try {
-      this.ethereumModel.balance = await this.web3Service.getEthBalance(this.model.account);
+      this.web3Service.getEthBalance(this.model.account, function (data) {
+        this.ethereumModel.balance = data;
+    });
       this.ERC20Model.balance = await this.web3Service.getERC20Balance(this.model.account);
 
         const deployedERC20Coin = await this.ERC20Token.deployed();

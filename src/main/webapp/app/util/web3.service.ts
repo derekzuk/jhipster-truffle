@@ -72,8 +72,12 @@ export class Web3Service {
 
   }
 
-    public getEthBalance(ethaccount){
-        return this.web3.eth.getBalance(ethaccount);
+    public getEthBalance(ethaccount, callback){
+        let that = this;
+        let weiBalance = this.web3.eth.getBalance(ethaccount).then(function(response) {
+            let returnValue = that.web3.utils.fromWei(response.toString(), 'ether');
+            callback(returnValue);
+        });
     }
 
     public getERC20Balance(ethaccount){

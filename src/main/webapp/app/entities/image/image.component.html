@@ -2,20 +2,24 @@
     <div class="container">
         <h1 class="jumbotron-heading">Make A Submission!</h1>
         <p class="lead text-muted">Submit an image here and let others vote on it by sending you a token!</p>
+        <a routerLink="display-image" class="btn btn-primary">See Top Voted Images!</a>
 
-        <div class="row">
-            <div class="col-md-3 float-right">
+        <!--replace this with proper css formatting-->
+        <p></p>
+
+        <div class="row justify-content-center">
+            <div class="col-md-9">
                 <form name="form" role="form" (ngSubmit)="submitImage()" *ngIf="!success">
                     <img [src]="url" height="500"> <br/>
+
+                    <!--replace this with proper css formatting-->
+                    <p></p>
+
                     <input type='file' (change)="onSelectFile($event)">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
 
-        <h3>You have <span id="balance">{{ethereumModel.balance}}</span> ETH</h3>
-        <p>
-            <a routerLink="display-image" class="btn btn-primary">See Top Voted Images!</a>
-        </p>
     </div>
 </section>
