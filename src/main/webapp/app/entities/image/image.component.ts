@@ -10,7 +10,10 @@ import { Principal, ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-image',
-    templateUrl: './image.component.html'
+    templateUrl: './image.component.html',
+    styleUrls: [
+        'album.css'
+    ]
 })
 export class ImageComponent implements OnInit, OnDestroy {
     accounts: string[];
