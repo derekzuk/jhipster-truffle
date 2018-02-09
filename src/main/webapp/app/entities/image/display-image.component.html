@@ -1,4 +1,4 @@
-<section class="jumbotron text-center">
+<section class="text-center">
     <div class="container">
         <h1 class="jumbotron-heading">Top Voted Submissions</h1>
         <p class="lead text-muted">This is a list of the top voted submissions. Submit a vote from this page for you favorite image and a token will be sent to the submitter's address!</p>
@@ -16,7 +16,7 @@
 
         <div class="card" *ngFor="let image of images">
             {{image.id}}
-            <img [src]="image.image_location" height="500"> <br/>
+            <img [src]="image.image_location" height="300"> <br/>
             Total Votes: {{image.upvoteCount}}
 
             <form name="form" role="form" (ngSubmit)="vote(image.id)">

@@ -1,84 +1,21 @@
-<div class="row">
-    <div class="col-md-3 float-right">
-<form name="form" role="form" (ngSubmit)="submitImage()" *ngIf="!success">
-    <img [src]="url" height="500"> <br/>
-    <input type='file' (change)="onSelectFile($event)">
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-9">
-    Display Image
-    <a routerLink="display-image">Display Image</a>
-</div>
-</div>
-
-<div *ngFor="let image of images">
-    {{image.id}}
-    <img [src]="image.image_location" height="500"> <br/>
-</div>
-
-<div>
-<h3>You have <span id="balance">{{ethereumModel.balance}}</span> ETH</h3>
-</div>
-
-
-<section class="jumbotron text-center">
+<section class="text-center">
     <div class="container">
-        <h1 class="jumbotron-heading">Album example</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
-        <p>
-            <a href="#" class="btn btn-primary">Main call to action</a>
-            <a href="#" class="btn btn-secondary">Secondary action</a>
-        </p>
-    </div>
-</section>
-
-<div class="album text-muted">
-    <div class="container">
+        <h1 class="jumbotron-heading">Make A Submission!</h1>
+        <p class="lead text-muted">Submit an image here and let others vote on it by sending you a token!</p>
 
         <div class="row">
-            <div class="card">
-                <img [src]="url" width="356">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card">
-                <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card">
-                <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-
-            <div class="card">
-                <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card">
-                <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card">
-                <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-
-            <div class="card">
-                <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card">
-                <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-            <div class="card">
-                <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <div class="col-md-3 float-right">
+                <form name="form" role="form" (ngSubmit)="submitImage()" *ngIf="!success">
+                    <img [src]="url" height="500"> <br/>
+                    <input type='file' (change)="onSelectFile($event)">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
 
+        <h3>You have <span id="balance">{{ethereumModel.balance}}</span> ETH</h3>
+        <p>
+            <a routerLink="display-image" class="btn btn-primary">See Top Voted Images!</a>
+        </p>
     </div>
-</div>
+</section>
