@@ -1,12 +1,12 @@
 If you're trying to use truffle features, such as the local smart contracts, run the local ethereum
 testnet with the following command. The network id will be set to 15. To totally start over, do this. 
 The nonce gets messed up with any restart so this might be necessary:<br />
-0. Clear the pending_transaction table <br />
-1. stop all local builds and delete the build folder <br />
-2. testrpc -m "better moon ladder inner effort novel lecture observe mention route label curtain" -i 15 <br />
-3. truffle compile <br />
-4. truffle migrate <br />
-5. start this app <br />
+1. Clear the pending_transaction table <br />
+2. stop all local builds and delete the build folder <br />
+3. testrpc -m "better moon ladder inner effort novel lecture observe mention route label curtain" -i 15 <br />
+4. truffle compile <br />
+5. truffle migrate <br />
+6. start this app <br />
 <br /><br />
 My Mnemonic:      better moon ladder inner effort novel lecture observe mention route label curtain 
 <br /><br />
